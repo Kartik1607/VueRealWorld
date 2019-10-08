@@ -9,7 +9,7 @@
           </p>
 
           <ul v-if="errors.length" class="error-messages">
-            <li>That email is already taken</li>
+            <li v-for="(error,index) in errors" :key="index">{{error}}</li>
           </ul>
 
           <form @submit.prevent="register">
@@ -25,7 +25,7 @@
               <input
                 v-model="email"
                 class="form-control form-control-lg"
-                type="text"
+                type="email"
                 placeholder="Email"
               />
             </fieldset>
@@ -49,6 +49,7 @@
 import { Component, Vue } from "vue-property-decorator";
 import { getModule } from "vuex-module-decorators";
 import Auth from "@/store/auth/auth.module";
+import { isValidEmail } from "@/utils.ts";
 
 @Component
 export default class Register extends Vue {
@@ -60,7 +61,28 @@ export default class Register extends Vue {
   private authModule = getModule(Auth, this.$store);
 
   public register() {
-    // TODO
+    const isValid = this.validateFields();
+    if (!isValid) {
+      return;
+    }
+  }
+
+  private validateFields() {
+    this.errors = [];
+    if (!this.name.length) {
+      this.errors.push("Name is required");
+    }
+
+    if (!this.email.length) {
+      this.errors.push("Email is required");
+    } else if (!isValidEmail(this.email)) {
+      this.errors.push("Email is invalid");
+    }
+
+    if (!this.password.length) {
+      this.errors.push("Password is required");
+    }
+    return this.errors.length === 0;
   }
 }
 </script>
