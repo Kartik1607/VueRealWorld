@@ -8,18 +8,28 @@
             <router-link to="/register">Need an account?</router-link>
           </p>
 
-          <ul class="error-messages">
+          <ul v-if="errors.length" class="error-messages">
             <li>That email is already taken</li>
           </ul>
 
-          <form>
+          <form @submit.prevent="login">
             <fieldset class="form-group">
-              <input class="form-control form-control-lg" type="text" placeholder="Email" />
+              <input
+                v-model="email"
+                class="form-control form-control-lg"
+                type="text"
+                placeholder="Email"
+              />
             </fieldset>
             <fieldset class="form-group">
-              <input class="form-control form-control-lg" type="password" placeholder="Password" />
+              <input
+                v-model="password"
+                class="form-control form-control-lg"
+                type="password"
+                placeholder="Password"
+              />
             </fieldset>
-            <button class="btn btn-lg btn-primary pull-xs-right" @click="login">Sign in</button>
+            <button class="btn btn-lg btn-primary pull-xs-right">Sign in</button>
           </form>
         </div>
       </div>
@@ -34,6 +44,11 @@ import Auth from "@/store/auth/auth.module";
 
 @Component
 export default class Login extends Vue {
+  public email = "";
+  public password = "";
+
+  public errors: string[] = [];
+
   private authModule = getModule(Auth, this.$store);
 
   public login() {
