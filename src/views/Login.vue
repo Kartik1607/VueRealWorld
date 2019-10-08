@@ -19,10 +19,25 @@
             <fieldset class="form-group">
               <input class="form-control form-control-lg" type="password" placeholder="Password" />
             </fieldset>
-            <button class="btn btn-lg btn-primary pull-xs-right">Sign in</button>
+            <button class="btn btn-lg btn-primary pull-xs-right" @click="login">Sign in</button>
           </form>
         </div>
       </div>
     </div>
   </div>
 </template>
+
+<script lang="ts">
+import { Component, Vue } from "vue-property-decorator";
+import { getModule } from "vuex-module-decorators";
+import Auth from "@/store/auth/auth.module";
+
+@Component
+export default class Login extends Vue {
+  private authModule = getModule(Auth, this.$store);
+
+  public login() {
+    // TODO
+  }
+}
+</script>

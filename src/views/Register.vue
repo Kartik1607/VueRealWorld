@@ -29,3 +29,18 @@
     </div>
   </div>
 </template>
+
+<script lang="ts">
+import { Component, Vue } from "vue-property-decorator";
+import { getModule } from "vuex-module-decorators";
+import Auth from "@/store/auth/auth.module";
+
+@Component
+export default class Register extends Vue {
+  private authModule = getModule(Auth, this.$store);
+
+  public register() {
+    // TODO
+  }
+}
+</script>

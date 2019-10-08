@@ -32,7 +32,8 @@
     "sass-loader": "^7.1.0",
     "tslint-config-prettier": "^1.18.0",
     "typescript": "^3.4.3",
-    "vue-template-compiler": "^2.6.10"
+    "vue-template-compiler": "^2.6.10",
+    "vuex-module-decorators": "^0.10.1"
   },
   "postcss": {
     "plugins": {
