@@ -50,39 +50,26 @@ import { Component, Vue } from "vue-property-decorator";
 import { getModule } from "vuex-module-decorators";
 import Auth from "@/store/auth/auth.module";
 import { isValidEmail } from "@/utils.ts";
+import { mapState } from "vuex";
 
-@Component
+@Component({
+  computed: mapState<any>({
+    errors: state => state.Auth.errors
+  })
+})
 export default class Register extends Vue {
   public name = "";
   public email = "";
   public password = "";
-  public errors: string[] = [];
 
   private authModule = getModule(Auth, this.$store);
 
   public register() {
-    const isValid = this.validateFields();
-    if (!isValid) {
-      return;
-    }
-  }
-
-  private validateFields() {
-    this.errors = [];
-    if (!this.name.length) {
-      this.errors.push("Name is required");
-    }
-
-    if (!this.email.length) {
-      this.errors.push("Email is required");
-    } else if (!isValidEmail(this.email)) {
-      this.errors.push("Email is invalid");
-    }
-
-    if (!this.password.length) {
-      this.errors.push("Password is required");
-    }
-    return this.errors.length === 0;
+    this.authModule.register({
+      name: this.name,
+      email: this.email,
+      password: this.password
+    });
   }
 }
 </script>

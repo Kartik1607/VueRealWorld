@@ -42,36 +42,24 @@ import { Component, Vue } from "vue-property-decorator";
 import { getModule } from "vuex-module-decorators";
 import Auth from "@/store/auth/auth.module";
 import { isValidEmail } from "@/utils.ts";
+import { mapState } from "vuex";
 
-@Component
+@Component({
+  computed: mapState<any>({
+    errors: state => state.Auth.errors
+  })
+})
 export default class Login extends Vue {
   public email = "";
   public password = "";
 
-  public errors: string[] = [];
-
   private authModule = getModule(Auth, this.$store);
 
   public login() {
-    const isValid = this.validateFields();
-    if (!isValid) {
-      return;
-    }
-  }
-
-  private validateFields() {
-    this.errors = [];
-
-    if (!this.email.length) {
-      this.errors.push("Email is required");
-    } else if (!isValidEmail(this.email)) {
-      this.errors.push("Email is invalid");
-    }
-
-    if (!this.password.length) {
-      this.errors.push("Password is required");
-    }
-    return this.errors.length === 0;
+    this.authModule.login({
+      email: this.email,
+      password: this.password
+    });
   }
 }
 </script>
