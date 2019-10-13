@@ -1,6 +1,6 @@
 import { Module, VuexModule, Mutation, Action } from "vuex-module-decorators";
 import axios from "axios";
-import { User } from "./user";
+import { User } from "@/models";
 import router from "@/router";
 
 @Module({

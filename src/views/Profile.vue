@@ -40,7 +40,7 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import { getModule } from "vuex-module-decorators";
-import Auth from "@/store/auth/auth.module";
+import Auth from "@/store/auth.module";
 import { isValidEmail } from "@/utils.ts";
 import { mapState } from "vuex";
 

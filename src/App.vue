@@ -11,7 +11,7 @@ import { Component, Vue } from "vue-property-decorator";
 import TheHeader from "./components/TheHeader.vue";
 import TheFooter from "./components/TheFooter.vue";
 import { getModule } from "vuex-module-decorators";
-import Auth from "@/store/auth/auth.module";
+import Auth from "@/store/auth.module";
 
 @Component({
   components: {

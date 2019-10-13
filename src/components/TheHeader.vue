@@ -32,7 +32,7 @@
 import { Component, Vue } from "vue-property-decorator";
 import { mapState } from "vuex";
 import { getModule } from "vuex-module-decorators";
-import Auth from "@/store/auth/auth.module";
+import Auth from "@/store/auth.module";
 
 @Component({
   computed: mapState<any>({

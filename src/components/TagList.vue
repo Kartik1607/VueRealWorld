@@ -19,5 +19,5 @@
 import { Component, Prop, Vue } from "vue-property-decorator";
 
 @Component
-export default class TagManager extends Vue {}
+export default class TagList extends Vue {}
 </script>
