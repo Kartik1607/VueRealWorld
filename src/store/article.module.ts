@@ -6,25 +6,7 @@ import { Article } from "@/models";
   name: "Article"
 })
 export default class ArticleModule extends VuexModule {
-  public articles: Article[] = [
-    {
-      slug: "how-to-train-your-dragon",
-      title: "How to train your dragon",
-      description: "Ever wonder how?",
-      body: "It takes a Jacobian",
-      tagList: ["dragons", "training"],
-      createdAt: new Date(),
-      updatedAt: new Date(),
-      favorited: false,
-      favoritesCount: 0,
-      author: {
-        username: "jake",
-        bio: "I work at statefarm",
-        image: "https://i.stack.imgur.com/xHWG8.jpg",
-        following: false
-      }
-    }
-  ];
+  public articles: Article[] = [];
 
   @Action
   public async fetchArticles({

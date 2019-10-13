@@ -3,21 +3,26 @@
     <p>Popular Tags</p>
 
     <div class="tag-list">
-      <a href class="tag-pill tag-default">programming</a>
-      <a href class="tag-pill tag-default">javascript</a>
-      <a href class="tag-pill tag-default">emberjs</a>
-      <a href class="tag-pill tag-default">angularjs</a>
-      <a href class="tag-pill tag-default">react</a>
-      <a href class="tag-pill tag-default">mean</a>
-      <a href class="tag-pill tag-default">node</a>
-      <a href class="tag-pill tag-default">rails</a>
+      <a class="tag-pill tag-default" v-for="tag of tags" :key="tag">{{tag}}</a>
     </div>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
+import { mapState } from "vuex";
+import TagsModule from "@/store/tags.module";
+import { getModule } from "vuex-module-decorators";
 
-@Component
-export default class TagList extends Vue {}
+@Component({
+  computed: mapState<any>({
+    tags: state => state.Tags.tags
+  })
+})
+export default class TagList extends Vue {
+  private tagsModule: TagsModule = getModule(TagsModule, this.$store);
+  public created() {
+    this.tagsModule.fetchTags();
+  }
+}
 </script>

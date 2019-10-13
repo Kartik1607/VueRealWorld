@@ -8,7 +8,7 @@
 import { Component, Prop, Vue } from "vue-property-decorator";
 import { Article } from "../models";
 import ArticleListItem from "./ArticleListitem.vue";
-import { mapState, mapGetters } from "vuex";
+import { mapState } from "vuex";
 import ArticleModule from "@/store/article.module";
 import { getModule } from "vuex-module-decorators";
 
@@ -17,7 +17,7 @@ import { getModule } from "vuex-module-decorators";
     ArticleListItem
   },
   computed: mapState<any>({
-    articles: state => state.ArticleModule.articles
+    articles: state => state.Article.articles
   })
 })
 export default class ArticleList extends Vue {
