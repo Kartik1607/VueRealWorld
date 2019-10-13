@@ -11,6 +11,9 @@ export interface Article {
   favorited: boolean;
   favoritesCount: number;
   author: {
+    username: string;
+    bio: string;
+    image: string;
     following: false;
-  } & User;
+  };
 }
