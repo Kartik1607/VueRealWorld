@@ -63,20 +63,7 @@
         </div>
 
         <div class="col-md-3">
-          <div class="sidebar">
-            <p>Popular Tags</p>
-
-            <div class="tag-list">
-              <a href class="tag-pill tag-default">programming</a>
-              <a href class="tag-pill tag-default">javascript</a>
-              <a href class="tag-pill tag-default">emberjs</a>
-              <a href class="tag-pill tag-default">angularjs</a>
-              <a href class="tag-pill tag-default">react</a>
-              <a href class="tag-pill tag-default">mean</a>
-              <a href class="tag-pill tag-default">node</a>
-              <a href class="tag-pill tag-default">rails</a>
-            </div>
-          </div>
+          <tag-manager class="sidebar"></tag-manager>
         </div>
       </div>
     </div>
@@ -87,10 +74,12 @@
 import { Component, Vue } from "vue-property-decorator";
 import HelloWorld from "@/components/HelloWorld.vue"; // @ is an alias to /src
 import { mapState } from "vuex";
+import TagManager from "@/components/TagManager.vue";
 
 @Component({
   components: {
-    HelloWorld
+    HelloWorld,
+    TagManager
   },
   computed: mapState<any>({
     user: state => state.Auth.user
