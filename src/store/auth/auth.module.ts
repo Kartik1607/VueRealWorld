@@ -10,6 +10,16 @@ export default class Auth extends VuexModule {
   public errors: string[] = [];
   public user: User | null = null;
 
+  private KEY_USER: string = "KEY_USER";
+
+  @Mutation
+  public initUser() {
+    const userValue = localStorage.getItem(this.KEY_USER);
+    if (userValue) {
+      this.user = JSON.parse(userValue);
+    }
+  }
+
   @Action
   public async register({ name = "", email = "", password = "" }) {
     this.clearErrors();
@@ -36,6 +46,7 @@ export default class Auth extends VuexModule {
 
   @Mutation
   public updateUser(user: User) {
+    localStorage.setItem(this.KEY_USER, JSON.stringify(user));
     this.user = user;
     router.replace("/");
   }
@@ -66,6 +77,7 @@ export default class Auth extends VuexModule {
   @Mutation
   public logout() {
     this.user = null;
+    localStorage.removeItem(this.KEY_USER);
   }
 
   @Mutation

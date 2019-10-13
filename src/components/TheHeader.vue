@@ -6,19 +6,22 @@
         <li class="nav-item">
           <router-link active-class="active" class="nav-link" exact to="/">Home</router-link>
         </li>
-        <li class="nav-item">
+        <li class="nav-item" v-if="user">
           <a class="nav-link" href>
             <i class="ion-compose"></i>&nbsp;New Post
           </a>
         </li>
-        <li class="nav-item">
-          <router-link active-class="active" class="nav-link" to="/login" v-if="!user">Sign In</router-link>
+        <li class="nav-item" v-if="!user">
+          <router-link active-class="active" class="nav-link" to="/login">Sign In</router-link>
         </li>
-        <li class="nav-item">
-          <router-link active-class="active" class="nav-link" to="/register" v-if="!user">Sign Up</router-link>
+        <li class="nav-item" v-if="!user">
+          <router-link active-class="active" class="nav-link" to="/register">Sign Up</router-link>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" v-if="user" @click.prevent.stop="logout">Sign Out</a>
+        <li class="nav-item" v-if="user">
+          <router-link active-class="active" class="nav-link" to="/profile">{{user.username}}</router-link>
+        </li>
+        <li class="nav-item" v-if="user">
+          <a class="nav-link" @click.prevent.stop="logout">Sign Out</a>
         </li>
       </ul>
     </div>

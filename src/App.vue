@@ -10,6 +10,8 @@
 import { Component, Vue } from "vue-property-decorator";
 import TheHeader from "./components/TheHeader.vue";
 import TheFooter from "./components/TheFooter.vue";
+import { getModule } from "vuex-module-decorators";
+import Auth from "@/store/auth/auth.module";
 
 @Component({
   components: {
@@ -17,5 +19,12 @@ import TheFooter from "./components/TheFooter.vue";
     TheFooter
   }
 })
-export default class App extends Vue {}
+export default class App extends Vue {
+  private authModule = getModule(Auth, this.$store);
+
+  constructor() {
+    super();
+    this.authModule.initUser();
+  }
+}
 </script>
