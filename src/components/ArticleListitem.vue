@@ -27,6 +27,6 @@ import { Article } from "@/models";
 
 @Component
 export default class ArticleListItem extends Vue {
-  @Prop() public article: Article | null = null;
+  @Prop({ default: null }) public article: Article | undefined;
 }
 </script>

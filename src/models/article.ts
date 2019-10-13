@@ -14,6 +14,6 @@ export interface Article {
     username: string;
     bio: string;
     image: string;
-    following: false;
+    following: boolean;
   };
 }
