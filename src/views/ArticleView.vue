@@ -70,7 +70,7 @@
       <div class="row">
         <div class="col-xs-12 col-md-8 offset-md-2">
           <comment-add></comment-add>
-          <comment-list></comment-list>
+          <comment-list :slug="article.slug"></comment-list>
         </div>
       </div>
     </div>

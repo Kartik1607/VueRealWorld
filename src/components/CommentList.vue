@@ -1,15 +1,15 @@
 <template>
   <div>
-    <comment-list-item v-for="item in 10" :key="item"></comment-list-item>
+    <comment-list-item v-for="comment in comments" :key="comment.id" :comment="comment"></comment-list-item>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from "vue-property-decorator";
+import { Component, Prop, Vue, Watch } from "vue-property-decorator";
 import { Article } from "../models";
 import ArticleListItem from "./ArticleListitem.vue";
 import { mapState } from "vuex";
-import ArticleModule from "@/store/article.module";
+import CommentModule from "@/store/comment.module";
 import { getModule } from "vuex-module-decorators";
 import ThePaginator from "./ThePaginator.vue";
 import CommentListItem from "./CommentListItem.vue";
@@ -19,9 +19,24 @@ import CommentListItem from "./CommentListItem.vue";
     CommentListItem
   },
   computed: mapState<any>({
-    articles: state => state.Article.articles,
-    totalCount: state => state.Article.totalCount
+    comments: state => state.Comments.comments
   })
 })
-export default class CommentList extends Vue {}
+export default class CommentList extends Vue {
+  @Prop({
+    default: ""
+  })
+  public slug: string | undefined;
+
+  private commentModule: CommentModule = getModule(CommentModule, this.$store);
+
+  @Watch("slug")
+  public onSlugChange(slug: string) {
+    this.commentModule.fetchComments(slug);
+  }
+
+  public created() {
+    this.onSlugChange(this.slug ? this.slug : "");
+  }
+}
 </script>

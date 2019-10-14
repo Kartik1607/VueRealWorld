@@ -1,15 +1,15 @@
 <template>
-  <div class="card">
+  <div class="card" v-if="comment">
     <div class="card-block">
-      <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+      <p class="card-text">{{comment.body}}</p>
     </div>
     <div class="card-footer">
       <a href class="comment-author">
         <img src="http://i.imgur.com/Qr71crq.jpg" class="comment-author-img" />
       </a>
       &nbsp;
-      <a href class="comment-author">Jacob Schmidt</a>
-      <span class="date-posted">Dec 29th</span>
+      <a href class="comment-author">{{comment.author.username}}</a>
+      <span class="date-posted">{{comment.createdAt | date}}</span>
     </div>
   </div>
 </template>
@@ -22,13 +22,14 @@ import { mapState } from "vuex";
 import ArticleModule from "@/store/article.module";
 import { getModule } from "vuex-module-decorators";
 import ThePaginator from "./ThePaginator.vue";
-
+import { date } from "@/filters";
 @Component({
-  components: {},
-  computed: mapState<any>({
-    articles: state => state.Article.articles,
-    totalCount: state => state.Article.totalCount
-  })
+  filters: {
+    date
+  }
 })
-export default class CommentListItem extends Vue {}
+export default class CommentListItem extends Vue {
+  @Prop({ default: null })
+  public comment: Comment | undefined;
+}
 </script>
