@@ -7,6 +7,7 @@ import { Article } from "@/models";
 })
 export default class ArticleModule extends VuexModule {
   public articles: Article[] = [];
+  public article: Article | null = null;
 
   @Action
   public async fetchArticles({
@@ -34,6 +35,27 @@ export default class ArticleModule extends VuexModule {
           this.setArticles(res.data.articles);
         }
       });
+  }
+
+  @Action
+  public getArticleBySlug(slug: string) {
+    axios
+      .get<{ article: Article }>(
+        `${process.env.VUE_APP_API_BASE}/articles/${slug}`
+      )
+      .then(res => {
+        if (res.status === 200) {
+          this.setArticle(res.data.article);
+        }
+      })
+      .catch(error => {
+        this.setArticle(null);
+      });
+  }
+
+  @Mutation
+  public setArticle(article: Article | null) {
+    this.article = article;
   }
 
   @Mutation

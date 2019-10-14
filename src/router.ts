@@ -27,6 +27,11 @@ export default new Router({
     {
       path: "/profile",
       component: () => import("./views/Login.vue")
+    },
+    {
+      name: "ArticleView",
+      path: "/articles/:slug",
+      component: () => import("./views/ArticleView.vue")
     }
   ]
 });

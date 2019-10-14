@@ -1,7 +1,7 @@
 <template>
   <div class="article-preview" v-if="article">
     <div class="article-meta">
-      <a href="profile.html">
+      <a>
         <img :src="article.author.image" />
       </a>
       <div class="info">
@@ -13,11 +13,16 @@
         {{article.favoritesCount}}
       </button>
     </div>
-    <a href class="preview-link">
+    <router-link
+      class="preview-link"
+      :to="{name: 'ArticleView', params: {
+      slug: article.slug
+    }}"
+    >
       <h1>{{article.title}}</h1>
       <p>{{article.description}}</p>
       <span>Read more...</span>
-    </a>
+    </router-link>
   </div>
 </template>
 
