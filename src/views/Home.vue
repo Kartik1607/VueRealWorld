@@ -13,7 +13,7 @@
           <div class="feed-toggle">
             <ul class="nav nav-pills outline-active">
               <li class="nav-item" v-if="user">
-                <a class="nav-link disabled">Your Feed</a>
+                <a class="nav-link">Your Feed</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link active">Global Feed</a>
