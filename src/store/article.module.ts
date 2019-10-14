@@ -8,6 +8,7 @@ import { Article } from "@/models";
 export default class ArticleModule extends VuexModule {
   public articles: Article[] = [];
   public article: Article | null = null;
+  public totalCount = 0;
 
   @Action
   public async fetchArticles({
@@ -18,7 +19,7 @@ export default class ArticleModule extends VuexModule {
     offset = 0
   }) {
     axios
-      .get<{ articles: Article[] }>(
+      .get<{ articles: Article[]; articlesCount: number }>(
         `${process.env.VUE_APP_API_BASE}/articles`,
         {
           params: {
@@ -32,7 +33,10 @@ export default class ArticleModule extends VuexModule {
       )
       .then(res => {
         if (res.status === 200) {
-          this.setArticles(res.data.articles);
+          this.setArticles({
+            articles: res.data.articles,
+            total: Math.ceil(res.data.articlesCount / limit)
+          });
         }
       });
   }
@@ -59,7 +63,14 @@ export default class ArticleModule extends VuexModule {
   }
 
   @Mutation
-  public setArticles(articles: Article[]) {
+  public setArticles({
+    articles = [],
+    total = 0
+  }: {
+    articles: Article[];
+    total: number;
+  }) {
     this.articles = articles;
+    this.totalCount = total;
   }
 }
