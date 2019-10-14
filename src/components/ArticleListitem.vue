@@ -6,7 +6,7 @@
       </a>
       <div class="info">
         <a class="author">{{article.author.name}}</a>
-        <span class="date">January 20th</span>
+        <span class="date">{{article.createdAt | date}}</span>
       </div>
       <button class="btn btn-outline-primary btn-sm pull-xs-right">
         <i class="ion-heart"></i>
@@ -24,8 +24,12 @@
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
 import { Article } from "@/models";
-
-@Component
+import { date } from "@/filters";
+@Component({
+  filters: {
+    date
+  }
+})
 export default class ArticleListItem extends Vue {
   @Prop({ default: null }) public article: Article | undefined;
 }
