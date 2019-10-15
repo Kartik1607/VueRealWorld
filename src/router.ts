@@ -32,6 +32,11 @@ export default new Router({
       name: "ArticleView",
       path: "/articles/:slug",
       component: () => import("./views/ArticleView.vue")
+    },
+    {
+      name: "ArticleCreate",
+      path: "/articlecreate",
+      component: () => import("./views/ArticleCreate.vue")
     }
   ]
 });

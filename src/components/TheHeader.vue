@@ -7,9 +7,9 @@
           <router-link active-class="active" class="nav-link" exact to="/">Home</router-link>
         </li>
         <li class="nav-item" v-if="user">
-          <a class="nav-link" href>
+          <router-link class="nav-link" active-class="active" to="/articlecreate">
             <i class="ion-compose"></i>&nbsp;New Post
-          </a>
+          </router-link>
         </li>
         <li class="nav-item" v-if="!user">
           <router-link active-class="active" class="nav-link" to="/login">Sign In</router-link>
