@@ -12,6 +12,13 @@ export default class Auth extends VuexModule {
 
   private KEY_USER: string = "KEY_USER";
 
+  public get token(): string {
+    if (this.user) {
+      return this.user.token;
+    }
+    return "";
+  }
+
   @Mutation
   public initUser() {
     const userValue = localStorage.getItem(this.KEY_USER);

@@ -4,7 +4,7 @@
       <div class="container">
         <h1>{{article.slug}}</h1>
 
-        <div class="article-meta">
+        <div class="article-meta" v-if="article.author">
           <a href>
             <img :src="article.author.image" />
           </a>
@@ -43,7 +43,7 @@
 
       <!-- Move into a separate component -->
       <div class="article-actions">
-        <div class="article-meta">
+        <div class="article-meta" v-if="article.author">
           <a href>
             <img :src="article.author.image" />
           </a>
