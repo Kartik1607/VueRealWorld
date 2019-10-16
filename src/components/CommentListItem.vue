@@ -5,7 +5,7 @@
     </div>
     <div class="card-footer">
       <a href class="comment-author">
-        <img src="http://i.imgur.com/Qr71crq.jpg" class="comment-author-img" />
+        <img :src="comment.author.image" class="comment-author-img" />
       </a>
       &nbsp;
       <a href class="comment-author">{{comment.author.username}}</a>

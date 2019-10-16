@@ -27,14 +27,15 @@ export default class CommentModule extends VuexModule {
   }
 
   @Action
-  public async postComment({ slug = "", body = "" }) {
+  public async postComment({ slug = "", body = "" }): Promise<boolean> {
     if (!slug || slug.length === 0) {
-      return;
+      this.updateErrors({ slug: ["cannot be empty"] });
+      return false;
     }
     this.updateErrors({});
-    axios
+    return axios
       .post<{ comment: Comment }>(
-        `${process.env.VUE_APP_API_BASE}/articles/${slug}`,
+        `${process.env.VUE_APP_API_BASE}/articles/${slug}/comments`,
         {
           comment: {
             body
@@ -47,16 +48,18 @@ export default class CommentModule extends VuexModule {
         }
       )
       .then(res => {
-        this.setComments([...this.comments].splice(0, 0, res.data.comment));
+        this.setComments([res.data.comment, ...this.comments]);
+        return true;
       })
       .catch(({ response }) => {
         if (response && response.data.errors) {
           this.updateErrors(response.data.errors);
         }
+        return false;
       });
   }
 
-  @Action
+  @Mutation
   public updateErrors(data: { [key: string]: string[] }) {
     const errors: string[] = [];
     Object.keys(data).forEach(key => {

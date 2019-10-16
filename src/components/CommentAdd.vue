@@ -1,34 +1,56 @@
 <template>
-  <form class="card comment-form">
-    <div class="card-block">
-      <textarea class="form-control" placeholder="Write a comment..." rows="3"></textarea>
-    </div>
-    <div class="card-footer">
-      <a class="comment-author">
-        <img :src="user.image" class="comment-author-img" />
-      </a>
-      &nbsp;
-      <a class="comment-author">{{user.username}}</a>
-      <button class="btn btn-sm btn-primary">Post Comment</button>
-    </div>
-  </form>
+  <div>
+    <error-list :errors="errors"></error-list>
+    <form class="card comment-form">
+      <div class="card-block">
+        <textarea class="form-control" placeholder="Write a comment..." rows="3" v-model="body"></textarea>
+      </div>
+      <div class="card-footer">
+        <a class="comment-author">
+          <img :src="user.image" class="comment-author-img" />
+        </a>
+        &nbsp;
+        <a class="comment-author">{{user.username}}</a>
+        <button class="btn btn-sm btn-primary" @click="postComment()">Post Comment</button>
+      </div>
+    </form>
+  </div>
 </template>
 
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
-import { Article } from "../models";
-import ArticleListItem from "./ArticleListitem.vue";
 import { mapState } from "vuex";
-import ArticleModule from "@/store/article.module";
+import CommentModule from "@/store/comment.module";
 import { getModule } from "vuex-module-decorators";
-import ThePaginator from "./ThePaginator.vue";
+import ErrorList from "./ErrorList.vue";
 
 @Component({
-  components: {},
+  components: { ErrorList },
   computed: mapState<any>({
     user: state => state.Auth.user,
-    totalCount: state => state.Article.totalCount
+    totalCount: state => state.Article.totalCount,
+    errors: state => state.Comments.commentErrors
   })
 })
-export default class CommentAdd extends Vue {}
+export default class CommentAdd extends Vue {
+  public body: string = "";
+
+  @Prop({ default: "" })
+  public slug!: string;
+
+  private commentModule: CommentModule = getModule(CommentModule, this.$store);
+
+  public postComment() {
+    this.commentModule
+      .postComment({
+        slug: this.slug,
+        body: this.body
+      })
+      .then(success => {
+        if (success) {
+          this.body = "";
+        }
+      });
+  }
+}
 </script>
