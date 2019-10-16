@@ -32,7 +32,9 @@ export default class CommentList extends Vue {
 
   @Watch("slug")
   public onSlugChange(slug: string) {
-    this.commentModule.fetchComments(slug);
+    if (slug && slug.length > 0) {
+      this.commentModule.fetchComments(slug);
+    }
   }
 
   public created() {

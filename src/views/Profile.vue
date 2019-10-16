@@ -8,9 +8,7 @@
             <router-link to="/register">Need an account?</router-link>
           </p>
 
-          <ul v-if="errors.length" class="error-messages">
-            <li v-for="(error,index) in errors" :key="index">{{error}}</li>
-          </ul>
+          <error-list :errors="errors"></error-list>
 
           <form @submit.prevent="login">
             <fieldset class="form-group">
@@ -43,8 +41,12 @@ import { getModule } from "vuex-module-decorators";
 import Auth from "@/store/auth.module";
 import { isValidEmail } from "@/utils.ts";
 import { mapState } from "vuex";
+import ErrorList from "@/components/Errors.vue";
 
 @Component({
+  components: {
+    ErrorList
+  },
   computed: mapState<any>({
     errors: state => state.Auth.errors
   })

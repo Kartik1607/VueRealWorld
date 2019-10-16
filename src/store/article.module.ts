@@ -45,6 +45,7 @@ export default class ArticleModule extends VuexModule {
 
   @Action
   public getArticleBySlug(slug: string) {
+    this.setArticle(undefined);
     axios
       .get<{ article: Article }>(
         `${process.env.VUE_APP_API_BASE}/articles/${slug}`

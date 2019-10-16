@@ -3,9 +3,7 @@
     <div class="container page">
       <div class="row">
         <div class="col-md-10 offset-md-1 col-xs-12">
-          <ul v-if="errors.length" class="error-messages">
-            <li v-for="(error,index) in errors" :key="index">{{error}}</li>
-          </ul>
+          <error-list :errors="errors"></error-list>
           <form>
             <fieldset>
               <fieldset class="form-group">
@@ -40,11 +38,12 @@
                   v-model="tags"
                 />
               </fieldset>
+              <button class="btn btn-lg btn-danger" type="button" v-if="isUserAuthor">Delete Article</button>
               <button
                 class="btn btn-lg pull-xs-right btn-primary"
                 type="button"
                 @click="publishArticle()"
-              >Publish Article</button>
+              >{{isUserAuthor? 'Update' : 'Publish'}}</button>
             </fieldset>
           </form>
         </div>
@@ -61,8 +60,11 @@ import { getModule } from "vuex-module-decorators";
 import { mapState } from "vuex";
 import CommentList from "@/components/CommentList.vue";
 import CommentAdd from "@/components/CommentAdd.vue";
-
+import ErrorList from "@/components/ErrorList.vue";
 @Component({
+  components: {
+    ErrorList
+  },
   computed: {
     ...mapState<any>({
       user: state => state.Auth.user,
@@ -75,21 +77,28 @@ export default class ArticleCreate extends Vue {
   public user!: User;
   public article!: Partial<Article>;
   private articleModule: ArticleModule = getModule(ArticleModule, this.$store);
+
   public set tags(tagStr: string) {
     this.article.tagList = tagStr.split(",").map(x => x.trim());
   }
-
   public get tags(): string {
     if (this.article.tagList) {
       return this.article.tagList.join(",");
     }
     return "";
   }
+  public get isUserAuthor(): boolean {
+    if (this.article.author) {
+      return this.user.username === this.article.author.username;
+    }
+    return false;
+  }
 
   public created() {
     if (!this.user) {
       this.$router.replace("/login");
     }
+    this.articleModule.updateErrors({});
     this.loadArticle(this.$route.params.slug);
   }
 
