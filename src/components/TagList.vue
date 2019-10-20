@@ -3,7 +3,14 @@
     <p>Popular Tags</p>
 
     <div class="tag-list">
-      <a class="tag-pill tag-default" v-for="tag of tags" :key="tag">{{tag}}</a>
+      <router-link
+        class="tag-pill tag-default tag-item"
+        v-for="tag of tags"
+        :key="tag"
+        :to="{name: 'TagView', params: {
+      tag: tag
+    }}"
+      >{{tag}}</router-link>
     </div>
   </div>
 </template>
@@ -26,3 +33,10 @@ export default class TagList extends Vue {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.tag-item:hover {
+  cursor: pointer;
+  background: green;
+}
+</style>

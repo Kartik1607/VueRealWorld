@@ -34,6 +34,11 @@ export default new Router({
       component: () => import("./views/ArticleView.vue")
     },
     {
+      name: "TagView",
+      path: "/tags/:tag",
+      component: () => import("./views/TagView.vue")
+    },
+    {
       name: "ArticleCreate",
       path: "/articlecreate",
       component: () => import("./views/ArticleCreate.vue")
