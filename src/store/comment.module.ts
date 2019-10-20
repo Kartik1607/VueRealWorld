@@ -59,6 +59,28 @@ export default class CommentModule extends VuexModule {
       });
   }
 
+  @Action
+  public deleteComment({ slug = "", id = 0 }) {
+    this.updateErrors({});
+    axios
+      .delete(
+        `${process.env.VUE_APP_API_BASE}/articles/${slug}/comments/${id}`,
+        {
+          headers: {
+            Authorization: `Token ${this.context.rootGetters.token}`
+          }
+        }
+      )
+      .then(res => {
+        this.fetchComments(slug);
+      })
+      .catch(({ response }) => {
+        if (response && response.data.errors) {
+          this.updateErrors(response.data.errors);
+        }
+      });
+  }
+
   @Mutation
   public updateErrors(data: { [key: string]: string[] }) {
     const errors: string[] = [];

@@ -110,7 +110,9 @@ export default class ArticleModule extends VuexModule {
         }
       })
       .then(res => {
-        router.replace(`/profile`);
+        router.replace(`/`).then(_ => {
+          alert("Deleted");
+        });
       })
       .catch(({ response }) => {
         if (response && response.data.errors) {
