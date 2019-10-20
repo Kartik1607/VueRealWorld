@@ -1,39 +1,22 @@
-# medium
+# ![RealWorld Example Applications](media/realworld.png)
 
-## Project setup
-```
-npm install
-```
+### Medium clone made on Vue 😮😎
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+Project demo is available at [https://vue-vuex-realworld.netlify.com/#/](https://vue-vuex-realworld.netlify.com/#/)
 
-### Compiles and minifies for production
-```
-npm run build
-```
+## Tech Stack
 
-### Run your tests
-```
-npm run test
-```
+[Vue](https://vuejs.org/)
+[Typescript](https://www.typescriptlang.org/)
+[Vuex](https://vuex.vuejs.org/)
+[Vue module Decorators](https://championswimmer.in/vuex-module-decorators/)
+[Axios](https://github.com/axios/axios)
 
-### Lints and fixes files
-```
-npm run lint
-```
+## Running Application
 
-### Run your end-to-end tests
-```
-npm run test:e2e
-```
+1. `npm i`
+2. `npm run serve`
 
-### Run your unit tests
-```
-npm run test:unit
-```
+# License
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+All of the codebases are **MIT licensed** unless otherwise specified.
