@@ -26,10 +26,7 @@
           <div class="articles-toggle">
             <ul class="nav nav-pills outline-active">
               <li class="nav-item">
-                <a class="nav-link active" href>My Articles</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href>Favorited Articles</a>
+                <a class="nav-link active">My Articles</a>
               </li>
             </ul>
           </div>

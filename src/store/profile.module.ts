@@ -35,6 +35,46 @@ export default class Profile extends VuexModule {
       });
   }
 
+  @Action
+  public followUser(username = "") {
+    this.clearErrors();
+    return axios
+      .post<{ profile: UserProfile }>(
+        `${process.env.VUE_APP_API_BASE}/profiles/${username}/follow`
+      )
+      .then(res => {
+        if (res.status === 200) {
+          this.updateProfile(res.data.profile);
+        }
+      })
+      .catch(res => {
+        const response = res.response;
+        if (response && response.data.errors) {
+          this.updateErrors(response.data.errors);
+        }
+      });
+  }
+
+  @Action
+  public unfollowUser(username = "") {
+    this.clearErrors();
+    return axios
+      .delete<{ profile: UserProfile }>(
+        `${process.env.VUE_APP_API_BASE}/profiles/${username}/follow`
+      )
+      .then(res => {
+        if (res.status === 200) {
+          this.updateProfile(res.data.profile);
+        }
+      })
+      .catch(res => {
+        const response = res.response;
+        if (response && response.data.errors) {
+          this.updateErrors(response.data.errors);
+        }
+      });
+  }
+
   @Mutation
   public updateErrors(data: { [key: string]: string[] }) {
     const errors: string[] = [];

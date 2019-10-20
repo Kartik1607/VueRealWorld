@@ -8,7 +8,11 @@
         <a class="author">{{article.author.name}}</a>
         <span class="date">{{article.createdAt | date}}</span>
       </div>
-      <button class="btn btn-outline-primary btn-sm pull-xs-right">
+      <button
+        class="btn btn-outline-primary btn-sm pull-xs-right"
+        :class="{fav: article.favorited}"
+        @click="favouriteArticle()"
+      >
         <i class="ion-heart"></i>
         {{article.favoritesCount}}
       </button>
@@ -30,6 +34,9 @@
 import { Component, Prop, Vue } from "vue-property-decorator";
 import { Article } from "@/models";
 import { date } from "@/filters";
+import ArticleModule from "@/store/article.module";
+import { getModule } from "vuex-module-decorators";
+
 @Component({
   filters: {
     date
@@ -37,5 +44,35 @@ import { date } from "@/filters";
 })
 export default class ArticleListItem extends Vue {
   @Prop({ default: null }) public article: Article | undefined;
+  private articleModule = getModule(ArticleModule, this.$store);
+  public favouriteArticle() {
+    if (this.article) {
+      if (!this.article.favorited) {
+        this.articleModule.favouriteArticle(this.article.slug).then(success => {
+          if (success) {
+            this.article!.favoritesCount++;
+            this.article!.favorited = true;
+          }
+        });
+      } else {
+        this.articleModule
+          .unfavouriteArticle(this.article.slug)
+          .then(success => {
+            if (success) {
+              this.article!.favoritesCount--;
+              this.article!.favorited = false;
+            }
+          });
+      }
+    }
+  }
 }
 </script>
+
+<style lang="scss" scoped>
+.fav {
+  color: #fff;
+  background-color: #5cb85c;
+  border-color: #5cb85c;
+}
+</style>

@@ -121,6 +121,38 @@ export default class ArticleModule extends VuexModule {
       });
   }
 
+  @Action
+  public async favouriteArticle(slug = "") {
+    return axios
+      .post(`${process.env.VUE_APP_API_BASE}/articles/${slug}/favorite`, {
+        headers: {
+          Authorization: `Token ${this.context.rootGetters.token}`
+        }
+      })
+      .then(_ => {
+        return true;
+      })
+      .catch(_ => {
+        return false;
+      });
+  }
+
+  @Action
+  public async unfavouriteArticle(slug = "") {
+    return axios
+      .delete(`${process.env.VUE_APP_API_BASE}/articles/${slug}/favorite`, {
+        headers: {
+          Authorization: `Token ${this.context.rootGetters.token}`
+        }
+      })
+      .then(_ => {
+        return true;
+      })
+      .catch(_ => {
+        return false;
+      });
+  }
+
   @Mutation
   public updateErrors(data: { [key: string]: string[] }) {
     const errors: string[] = [];
