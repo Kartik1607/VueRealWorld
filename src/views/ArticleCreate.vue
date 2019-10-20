@@ -1,5 +1,5 @@
 <template>
-  <div class="editor-page">
+  <div class="editor-page" v-if="article">
     <div class="container page">
       <div class="row">
         <div class="col-md-10 offset-md-1 col-xs-12">
@@ -38,7 +38,12 @@
                   v-model="tags"
                 />
               </fieldset>
-              <button class="btn btn-lg btn-danger" type="button" v-if="isUserAuthor">Delete Article</button>
+              <button
+                class="btn btn-lg btn-danger"
+                type="button"
+                v-if="isUserAuthor"
+                @click="deleteArticle()"
+              >Delete Article</button>
               <button
                 class="btn btn-lg pull-xs-right btn-primary"
                 type="button"
@@ -122,6 +127,10 @@ export default class ArticleCreate extends Vue {
       body: this.article.body || "",
       tagList: this.article.tagList || []
     });
+  }
+
+  public deleteArticle() {
+    this.articleModule.deleteArticle(this.article.slug);
   }
 }
 </script>

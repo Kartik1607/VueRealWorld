@@ -100,6 +100,25 @@ export default class ArticleModule extends VuexModule {
       });
   }
 
+  @Action
+  public async deleteArticle(slug = "") {
+    this.updateErrors({});
+    axios
+      .delete(`${process.env.VUE_APP_API_BASE}/articles/${slug}`, {
+        headers: {
+          Authorization: `Token ${this.context.rootGetters.token}`
+        }
+      })
+      .then(res => {
+        router.replace(`/profile`);
+      })
+      .catch(({ response }) => {
+        if (response && response.data.errors) {
+          this.updateErrors(response.data.errors);
+        }
+      });
+  }
+
   @Mutation
   public updateErrors(data: { [key: string]: string[] }) {
     const errors: string[] = [];

@@ -40,6 +40,10 @@ export default class CommentAdd extends Vue {
 
   private commentModule: CommentModule = getModule(CommentModule, this.$store);
 
+  public created() {
+    this.commentModule.updateErrors({});
+  }
+
   public postComment() {
     this.commentModule
       .postComment({

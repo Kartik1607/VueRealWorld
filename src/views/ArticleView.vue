@@ -26,6 +26,13 @@
               class="counter"
             >({{article.favoritesCount}})</span>
           </button>
+          &nbsp;&nbsp;
+          <router-link :to="'/articleCreate/' + article.slug">
+            <button
+              class="btn btn-sm btn-outline-primary"
+              v-if="user.username === article.author.username"
+            >Edit</button>
+          </router-link>
         </div>
       </div>
     </div>
@@ -93,7 +100,8 @@ import CommentAdd from "@/components/CommentAdd.vue";
   },
   computed: {
     ...mapState<any>({
-      article: state => state.Article.article
+      article: state => state.Article.article,
+      user: state => state.Auth.user
     })
   }
 })
