@@ -1,6 +1,4 @@
-# ![RealWorld Example Applications](media/realworld.png)
-
-### Medium clone made on Vue 😮😎
+# Medium clone made on Vue 😮😎
 
 Project demo is available at [https://vue-vuex-realworld.netlify.com/#/](https://vue-vuex-realworld.netlify.com/#/)
 
