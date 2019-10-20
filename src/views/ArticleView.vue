@@ -22,7 +22,7 @@
             <span class="date">{{article.createdAt}}</span>
           </div>
           <button
-            v-if="user.username !== article.author.username"
+            v-if="user && user.username !== article.author.username"
             class="btn btn-sm btn-outline-secondary"
             @click="toggleFollow()"
           >
@@ -34,7 +34,7 @@
           </button>
           &nbsp;&nbsp;
           <button
-            v-if="user.username !== article.author.username"
+            v-if="user && user.username !== article.author.username"
             class="btn btn-sm btn-outline-primary"
             :class="{fav : article.favorited}"
             @click="favouriteArticle()"
@@ -50,7 +50,7 @@
           <router-link :to="'/articleCreate/' + article.slug">
             <button
               class="btn btn-sm btn-outline-primary"
-              v-if="user.username === article.author.username"
+              v-if="user && user.username === article.author.username"
             >Edit</button>
           </router-link>
         </div>
@@ -70,7 +70,7 @@
 
       <div class="row">
         <div class="col-xs-12 col-md-8 offset-md-2">
-          <comment-add :slug="article.slug"></comment-add>
+          <comment-add v-if="user" :slug="article.slug"></comment-add>
           <comment-list :slug="article.slug"></comment-list>
         </div>
       </div>

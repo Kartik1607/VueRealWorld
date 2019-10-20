@@ -5,7 +5,7 @@
       <div class="card-block">
         <textarea class="form-control" placeholder="Write a comment..." rows="3" v-model="body"></textarea>
       </div>
-      <div class="card-footer">
+      <div class="card-footer" v-if="user">
         <a class="comment-author">
           <img :src="user.image" class="comment-author-img" />
         </a>
