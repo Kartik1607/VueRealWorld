@@ -42,6 +42,11 @@ export default new Router({
       name: "ArticleCreate",
       path: "/articlecreate/:slug",
       component: () => import("./views/ArticleCreate.vue")
+    },
+    {
+      name: "NotFound",
+      path: "*",
+      component: () => import("./views/NotFound.vue")
     }
   ]
 });

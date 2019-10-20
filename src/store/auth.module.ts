@@ -16,6 +16,7 @@ export default class Auth extends VuexModule {
     if (this.user) {
       return this.user.token;
     }
+
     return "";
   }
 
