@@ -8,12 +8,15 @@
             <h4>{{profile.username}}</h4>
             <p>{{profile.bio}}</p>
             <button
+              @click="toggleFollow()"
               class="btn btn-sm btn-outline-secondary action-btn"
               v-if="user && user.username !== profile.username"
             >
-              <i class="ion-plus-round"></i>
+              <i
+                :class="{'ion-plus-round': !profile.following, 'ion-minus-round': profile.following}"
+              ></i>
               &nbsp;
-              Follow {{profile.username}}
+              {{profile.following ? 'Unfollow' : 'Follow'}} {{profile.username}}
             </button>
           </div>
         </div>
@@ -45,6 +48,7 @@ import { mapState } from "vuex";
 import ErrorList from "@/components/ErrorList.vue";
 import Profile from "@/store/profile.module";
 import ArticleList from "@/components/ArticleList.vue";
+import { UserProfile } from "../models";
 
 @Component({
   components: {
@@ -58,6 +62,7 @@ import ArticleList from "@/components/ArticleList.vue";
   })
 })
 export default class ProfileView extends Vue {
+  public profile!: UserProfile;
   private profileModule = getModule(Profile, this.$store);
 
   public created() {
@@ -66,6 +71,20 @@ export default class ProfileView extends Vue {
 
   public loadProfile(username = "") {
     this.profileModule.getProfile(username);
+  }
+
+  public toggleFollow() {
+    if (this.profile) {
+      if (!this.profile.following) {
+        this.profileModule.followUser(this.profile.username).then(_ => {
+          this.profile.following = true;
+        });
+      } else {
+        this.profileModule.unfollowUser(this.profile.username).then(_ => {
+          this.profile.following = false;
+        });
+      }
+    }
   }
 }
 </script>

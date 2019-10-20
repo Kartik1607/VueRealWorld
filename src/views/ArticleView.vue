@@ -5,11 +5,20 @@
         <h1>{{article.slug}}</h1>
 
         <div class="article-meta" v-if="article.author">
-          <a href>
+          <router-link
+            :to="{name: 'ProfileView', params: {
+              username: article.author.username
+            }}"
+          >
             <img :src="article.author.image" />
-          </a>
+          </router-link>
           <div class="info">
-            <a href class="author">{{article.author.username}}</a>
+            <router-link
+              :to="{name: 'ProfileView', params: {
+              username: article.author.username
+            }}"
+              class="author"
+            >{{article.author.username}}</router-link>
             <span class="date">{{article.createdAt}}</span>
           </div>
           <button
