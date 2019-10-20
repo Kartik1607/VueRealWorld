@@ -9,7 +9,6 @@ Vue.config.productionTip = false;
 axios.interceptors.response.use(undefined, (error: AxiosError) => {
   if ((error.response as AxiosResponse).status === 404) {
     router.replace("/notfound");
-    return;
   }
   return error;
 });

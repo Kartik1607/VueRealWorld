@@ -1,34 +1,40 @@
 <template>
-  <div class="auth-page">
-    <div class="container page">
+  <div class="profile-page">
+    <div class="user-info" v-if="profile">
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-12 col-md-10 offset-md-1">
+            <img :src="profile.image" class="user-img" />
+            <h4>{{profile.username}}</h4>
+            <p>{{profile.bio}}</p>
+            <button
+              class="btn btn-sm btn-outline-secondary action-btn"
+              v-if="user && user.username !== profile.username"
+            >
+              <i class="ion-plus-round"></i>
+              &nbsp;
+              Follow {{profile.username}}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
       <div class="row">
-        <div class="col-md-6 offset-md-3 col-xs-12">
-          <h1 class="text-xs-center">Sign In</h1>
-          <p class="text-xs-center">
-            <router-link to="/register">Need an account?</router-link>
-          </p>
+        <div class="col-xs-12 col-md-10 offset-md-1">
+          <div class="articles-toggle">
+            <ul class="nav nav-pills outline-active">
+              <li class="nav-item">
+                <a class="nav-link active" href>My Articles</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href>Favorited Articles</a>
+              </li>
+            </ul>
+          </div>
 
-          <error-list :errors="errors"></error-list>
-
-          <form @submit.prevent="login">
-            <fieldset class="form-group">
-              <input
-                v-model="email"
-                class="form-control form-control-lg"
-                type="email"
-                placeholder="Email"
-              />
-            </fieldset>
-            <fieldset class="form-group">
-              <input
-                v-model="password"
-                class="form-control form-control-lg"
-                type="password"
-                placeholder="Password"
-              />
-            </fieldset>
-            <button class="btn btn-lg btn-primary pull-xs-right">Sign in</button>
-          </form>
+          <article-list :author="profile.username" v-if="profile"></article-list>
         </div>
       </div>
     </div>
@@ -38,30 +44,31 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import { getModule } from "vuex-module-decorators";
-import Auth from "@/store/auth.module";
-import { isValidEmail } from "@/utils.ts";
 import { mapState } from "vuex";
-import ErrorList from "@/components/Errors.vue";
+import ErrorList from "@/components/ErrorList.vue";
+import Profile from "@/store/profile.module";
+import ArticleList from "@/components/ArticleList.vue";
 
 @Component({
   components: {
-    ErrorList
+    ErrorList,
+    ArticleList
   },
   computed: mapState<any>({
-    errors: state => state.Auth.errors
+    errors: state => state.Profile.errors,
+    profile: state => state.Profile.profile,
+    user: state => state.Auth.user
   })
 })
-export default class Login extends Vue {
-  public email = "";
-  public password = "";
+export default class ProfileView extends Vue {
+  private profileModule = getModule(Profile, this.$store);
 
-  private authModule = getModule(Auth, this.$store);
+  public created() {
+    this.loadProfile(this.$route.params.username);
+  }
 
-  public login() {
-    this.authModule.login({
-      email: this.email,
-      password: this.password
-    });
+  public loadProfile(username = "") {
+    this.profileModule.getProfile(username);
   }
 }
 </script>

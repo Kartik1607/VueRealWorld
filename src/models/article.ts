@@ -1,4 +1,5 @@
 import { User } from "./user";
+import { UserProfile } from "./profile";
 
 export interface Article {
   slug: string;
@@ -10,10 +11,5 @@ export interface Article {
   updatedAt: Date;
   favorited: boolean;
   favoritesCount: number;
-  author: {
-    username: string;
-    bio: string;
-    image: string;
-    following: boolean;
-  };
+  author: UserProfile;
 }

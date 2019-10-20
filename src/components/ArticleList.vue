@@ -25,6 +25,11 @@ import ThePaginator from "./ThePaginator.vue";
   })
 })
 export default class ArticleList extends Vue {
+  @Prop({
+    default: ""
+  })
+  public author!: string;
+
   private articleModule = getModule(ArticleModule, this.$store);
   private readonly limit = 20;
 
@@ -33,7 +38,10 @@ export default class ArticleList extends Vue {
   }
 
   public fetchArticles(page = 1) {
-    this.articleModule.fetchArticles({ offset: (page - 1) * this.limit });
+    this.articleModule.fetchArticles({
+      offset: (page - 1) * this.limit,
+      author: this.author || ""
+    });
   }
 }
 </script>

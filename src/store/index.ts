@@ -4,6 +4,8 @@ import Auth from "./auth.module";
 import Article from "./article.module";
 import Tags from "./tags.module";
 import Comments from "./comment.module";
+import Profile from "./profile.module";
+
 Vue.use(Vuex);
 
 export default new Vuex.Store({
@@ -11,6 +13,7 @@ export default new Vuex.Store({
     Auth,
     Article,
     Tags,
-    Comments
+    Comments,
+    Profile
   }
 });

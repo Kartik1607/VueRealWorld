@@ -18,7 +18,11 @@
           <router-link active-class="active" class="nav-link" to="/register">Sign Up</router-link>
         </li>
         <li class="nav-item" v-if="user">
-          <router-link active-class="active" class="nav-link" to="/profile">{{user.username}}</router-link>
+          <router-link
+            active-class="active"
+            class="nav-link"
+            :to="'/profile/'+user.username"
+          >{{user.username}}</router-link>
         </li>
         <li class="nav-item" v-if="user">
           <a class="nav-link" @click.prevent.stop="logout">Sign Out</a>
