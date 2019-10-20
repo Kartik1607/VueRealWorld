@@ -40,7 +40,13 @@ export default class Profile extends VuexModule {
     this.clearErrors();
     return axios
       .post<{ profile: UserProfile }>(
-        `${process.env.VUE_APP_API_BASE}/profiles/${username}/follow`
+        `${process.env.VUE_APP_API_BASE}/profiles/${username}/follow`,
+        undefined,
+        {
+          headers: {
+            Authorization: `Token ${this.context.rootGetters.token}`
+          }
+        }
       )
       .then(res => {
         if (res.status === 200) {
@@ -60,11 +66,17 @@ export default class Profile extends VuexModule {
     this.clearErrors();
     return axios
       .delete<{ profile: UserProfile }>(
-        `${process.env.VUE_APP_API_BASE}/profiles/${username}/follow`
+        `${process.env.VUE_APP_API_BASE}/profiles/${username}/follow`,
+        {
+          headers: {
+            Authorization: `Token ${this.context.rootGetters.token}`
+          }
+        }
       )
       .then(res => {
         if (res.status === 200) {
           this.updateProfile(res.data.profile);
+          return true;
         }
       })
       .catch(res => {

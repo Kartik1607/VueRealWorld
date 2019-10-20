@@ -27,11 +27,12 @@
           <button
             v-if="user.username !== article.author.username"
             class="btn btn-sm btn-outline-primary"
+            :class="{fav : article.favorited}"
             @click="favouriteArticle()"
           >
             <i class="ion-heart"></i>
             &nbsp;
-            Favorite Post
+            {{article.favorited ? 'Unfavorite' : "Favourite"}} Post
             <span
               class="counter"
             >({{article.favoritesCount}})</span>
@@ -130,16 +131,24 @@ export default class ArticleView extends Vue {
     if (this.article) {
       if (!this.article.author.following) {
         this.profileModule.followUser(this.article.author.username).then(_ => {
-          this.getArticle(this.article.slug);
+          this.article.author.following = true;
         });
       } else {
         this.profileModule
           .unfollowUser(this.article.author.username)
           .then(_ => {
-            this.getArticle(this.article.slug);
+            this.article.author.following = false;
           });
       }
     }
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.fav {
+  color: #fff;
+  background-color: #5cb85c;
+  border-color: #5cb85c;
+}
+</style>
