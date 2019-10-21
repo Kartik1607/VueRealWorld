@@ -4,11 +4,11 @@ Project demo is available at [https://vue-vuex-realworld.netlify.com/#/](https:/
 
 ## Tech Stack
 
-[Vue](https://vuejs.org/)
-[Typescript](https://www.typescriptlang.org/)
-[Vuex](https://vuex.vuejs.org/)
-[Vue module Decorators](https://championswimmer.in/vuex-module-decorators/)
-[Axios](https://github.com/axios/axios)
+- [Vue](https://vuejs.org/)
+- [Typescript](https://www.typescriptlang.org/)
+- [Vuex](https://vuex.vuejs.org/)
+- [Vue module Decorators](https://championswimmer.in/vuex-module-decorators/)
+- [Axios](https://github.com/axios/axios)
 
 ## Running Application
 
