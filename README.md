@@ -1,6 +1,6 @@
 # Medium clone made on Vue 😮😎
 
-Project demo is available at [https://vue-vuex-realworld.netlify.com/#/](https://vue-vuex-realworld.netlify.com/#/)
+Project demo is available at [https://5dad4e1cba843dd4e01d5343--kartik.netlify.com/#/](https://5dad4e1cba843dd4e01d5343--kartik.netlify.com/#/)
 
 ## Tech Stack
 
